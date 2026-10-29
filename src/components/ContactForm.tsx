@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { formOptions, freelance, NEED_EVENT } from "../lib/freelance";
+import { formOptions, freelance, NEED_EVENT, SITE_NEEDS } from "../lib/freelance";
 import { EmailButton } from "./EmailButton";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -11,6 +11,8 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [need, setNeed] = useState("");
   const doneRef = useRef<HTMLDivElement>(null);
+  // For a health check or a fix-up there has to be a website to look at.
+  const needsSite = SITE_NEEDS.includes(need);
 
   // The "Get my free check" button asks us to pre-select an answer.
   useEffect(() => {
@@ -70,9 +72,17 @@ export function ContactForm() {
 
       <div className="fl-field full">
         <label className="mono" htmlFor="f-company">
-          Company and current website <span className="fl-opt">optional</span>
+          Company and current website <span className="fl-opt">{needsSite ? "required for this" : "optional"}</span>
         </label>
-        <input id="f-company" name="company" type="text" maxLength={200} autoComplete="organization" />
+        <input
+          id="f-company"
+          name="company"
+          type="text"
+          required={needsSite}
+          maxLength={200}
+          autoComplete="organization"
+          placeholder={needsSite ? "https://yourwebsite.com" : undefined}
+        />
       </div>
 
       <div className="fl-field full">
@@ -93,10 +103,12 @@ export function ContactForm() {
 
       <div className="fl-field">
         <label className="mono" htmlFor="f-budget">
-          Budget <span className="fl-opt">optional</span>
+          Budget <span className="fl-opt">excl. VAT</span>
         </label>
-        <select id="f-budget" name="budget" defaultValue="">
-          <option value="">Choose one</option>
+        <select id="f-budget" name="budget" required defaultValue="">
+          <option value="" disabled>
+            Choose one
+          </option>
           {formOptions.budgets.map((o) => (
             <option key={o} value={o}>
               {o}

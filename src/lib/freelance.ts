@@ -106,15 +106,31 @@ export const freelance = {
   waiting: "Still here. Waiting for your message.",
 };
 
-/** The dropdowns of the contact form. The API route checks answers against these lists. */
+/**
+ * The dropdowns of the contact form. The API route checks answers against these lists.
+ * The budget ranges follow the price list: under €500 covers "Fix & secure", €500-1,000 a landing page,
+ * €1,000-2,000 a business website, and so on. Budget is required, "Not sure yet" is a valid answer.
+ */
 export const formOptions = {
-  needs: ["New website", "Redesign", "Landing page", "Custom build", "Free health check", "Not sure yet"],
-  budgets: ["Under €1,500", "€1,500–3,000", "€3,000–6,000", "€6,000+", "Not sure yet"],
+  needs: [
+    "Landing page",
+    "Business website",
+    "Redesign of my current site",
+    "Custom build (CMS, booking, logins)",
+    "Fix & secure my existing site",
+    "Care plan for my site",
+    "Free health check",
+    "Not sure yet",
+  ],
+  budgets: ["Under €500", "€500–1,000", "€1,000–2,000", "€2,000–4,000", "€4,000+", "Not sure yet, I'd like advice"],
   timelines: ["As soon as possible", "1–3 months", "Flexible"],
 } as const;
 
 /** What the "Get my free check" button puts into the "What do you need?" dropdown. */
 export const HEALTH_CHECK = "Free health check";
+
+/** For these answers the visitor's current website is required, because there is nothing to check without it. */
+export const SITE_NEEDS: readonly string[] = [HEALTH_CHECK, "Fix & secure my existing site"];
 
 /** Name of the browser event the buttons use to talk to the form. */
 export const NEED_EVENT = "freelance:need";

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { formOptions } from "../../../lib/freelance";
+import { formOptions, SITE_NEEDS } from "../../../lib/freelance";
 
 /**
  * Receives the project enquiry form and emails it to Lívia through Resend
@@ -64,9 +64,10 @@ export async function POST(request: Request) {
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const needOk = (formOptions.needs as readonly string[]).includes(need);
-  const budgetOk = budget === "" || (formOptions.budgets as readonly string[]).includes(budget);
+  const budgetOk = (formOptions.budgets as readonly string[]).includes(budget);
   const timelineOk = timeline === "" || (formOptions.timelines as readonly string[]).includes(timeline);
-  if (!name || !emailOk || !needOk || !budgetOk || !timelineOk || message.length < 10) {
+  const siteOk = !SITE_NEEDS.includes(need) || company !== "";
+  if (!name || !emailOk || !needOk || !budgetOk || !timelineOk || !siteOk || message.length < 10) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
   }
 
@@ -82,7 +83,7 @@ export async function POST(request: Request) {
     `Email: ${email}`,
     `Company / website: ${company || "-"}`,
     `Needs: ${need}`,
-    `Budget: ${budget || "-"}`,
+    `Budget (excl. VAT): ${budget}`,
     `Timeline: ${timeline || "-"}`,
     "",
     message,
