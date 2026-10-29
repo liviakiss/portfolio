@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { about, contact, gifs, hero, rightNow, site, tools } from "../lib/content";
 import type { Commit } from "../lib/github";
 import { Credentials } from "./Credentials";
@@ -84,16 +85,36 @@ export function HomeView({ commits }: { commits: Commit[] }) {
         <div className="board sm" aria-hidden="true" />
         <div className="ruler" aria-hidden="true" />
         <div className="contact">
-          <div className="contact-main">
-            <div className="mono sec-label" style={{ marginBottom: 24 }}>
-              [ 04 contact ]
-            </div>
-            <h2>
-              {contact.heading} <em>{contact.headingAccent}</em>
-            </h2>
-            <p>{contact.text}</p>
-            <EmailButton label={contact.button} />
+          <div className="mono sec-label">[ 04 contact ]</div>
+
+          <div className="paths">
+            <article className="path path-role" aria-labelledby="path-role">
+              <div className="mono path-label">
+                <span className="dot dot--blue" aria-hidden="true" />
+                {contact.role.label}
+              </div>
+              <h2 id="path-role">
+                {contact.role.heading} <em>{contact.role.headingAccent}</em>
+              </h2>
+              <p>{contact.role.text}</p>
+              <EmailButton label={contact.role.button} />
+            </article>
+
+            <article className="path path-project" aria-labelledby="path-project">
+              <div className="mono path-label">
+                <span className="dot dot--sage" aria-hidden="true" />
+                {contact.project.label}
+              </div>
+              <h2 id="path-project">
+                {contact.project.heading} <em>{contact.project.headingAccent}</em>
+              </h2>
+              <p>{contact.project.text}</p>
+              <Link className="mail-btn alt" href={contact.project.href}>
+                {contact.project.button} <span aria-hidden="true">→</span>
+              </Link>
+            </article>
           </div>
+
           <aside className="elsewhere" aria-label="Elsewhere">
             <div className="elsewhere-head">
               <span className="mono mute">Card</span>

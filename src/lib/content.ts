@@ -228,21 +228,37 @@ export const about = {
 };
 
 /**
- * The two GIFs are loaded straight from Giphy for now.
+ * The GIFs are loaded straight from Giphy for now.
  * To host them yourself (faster, and no request to a third party):
- * save the files into /public/img/ and change these to "/img/about.gif" and "/img/my-world.gif".
+ * save the files into /public/img/ and change these to "/img/about.gif", "/img/my-world.gif" and "/img/cat.gif".
  */
 export const gifs = {
   about:
     "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c2I3ZzRtcW4zaWt1cGY4ZzVmcGlwbnpyam5tMm5kNmRrMjVhbXg1cCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/pOKrXLf9N5g76/giphy.gif",
   myWorld:
     "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MHFibDJlM2s4cXk3Yzk0eWFmYzVxNGl6NGlmN2VyNTJqZzhpY3k4bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/QQQoLTqkm7v3y/giphy.gif",
+  /** The cat that waits next to the freelance contact form. */
+  cat:
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXc1OXdseDZ3dHUzMDdqandybmJncTR6bW1xcGVvMThiMzNkYzg4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A0Zt7yuDULiy4ofmVD/giphy.gif",
 };
 
 export const contact = {
-  heading: "Hiring?",
-  headingAccent: "Let's talk.",
-  text: "Tell me about the role and the team. I reply within a few hours, or a few days at most.",
-  button: "Write me an email",
-  footnote: "Also open to a few small freelance projects",
+  /** Path 1: a company hiring for a role. */
+  role: {
+    label: "For roles",
+    heading: "Hiring?",
+    headingAccent: "Let's talk.",
+    text: "Tell me about the role and the team. I reply within a few hours, or a few days at most.",
+    button: "Write me an email",
+  },
+  /** Path 2: someone who wants a website built. Leads to /freelance. */
+  project: {
+    label: "For projects",
+    heading: "Want to work",
+    headingAccent: "together?",
+    text: "I also design and build websites for businesses and teams: made for you, hand-coded and secured from day one.",
+    button: "See how I work",
+    href: "/freelance",
+  },
+  footnote: "Open to work · open to projects",
 };
